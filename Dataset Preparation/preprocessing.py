@@ -142,12 +142,12 @@ class Preprocess:
         
 
 
-    def normalization(self, imagefile = None, resizedsubpath = None, normalizedsubpath = None, savefile = False):
+    def normalization(self, imagefile = None, resizedsubpath = None, normalizedsubpath = None):
         
         """This method is used to normalize the images in the dataset. The method takes the following parameters:
         - imagefile: The image file to be normalized.
+        - resizedsubpath: The subpath where the resized images will be saved.
         - normalizedsubpath: The subpath where the normalized images will be saved.
-        - savefile: A boolean value to save the normalized images.
         
         Returns:
         - image: The normalized image.
@@ -160,38 +160,6 @@ class Preprocess:
 
         image = imagefile/255.0
             
-
-        if savefile:
-
-            resizeddatapath = os.path.join(self.mainpath, resizedsubpath)
-
-            resizeddirlist = os.listdir(resizeddatapath)
-
-            normalizeddirectory = os.path.join(self.mainpath, normalizedsubpath)
-
-            if not os.path.isdir(normalizeddirectory):
-                    os.mkdir(normalizeddirectory)
-
-            for resizedsubdir in resizeddirlist:
-
-                normalizedsubdirectory = os.path.join(normalizeddirectory, resizedsubdir)
-
-                if not os.path.isdir(normalizedsubdirectory):
-                    os.mkdir(normalizedsubdirectory)
-
-                for imagename in os.listdir(os.path.join(resizeddatapath, resizedsubdir)):
-                    image = cv.imread(os.path.join(resizeddatapath, resizedsubdir, imagename))
-            
-                    print(os.path.join(normalizedsubdirectory, imagename))
-                    
-                    image = image/255.0
-
-                    normalizedimagepath = os.path.join(normalizedsubdirectory, imagename)
-
-                    cv.imwrite(normalizedimagepath, image)
-
-            return None
-        
         return image
     
 
